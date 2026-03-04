@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AG Rise Phoenix Crewneck - Premium Streetwear</title>
+    <meta name="description" content="Elevate your streetwear with the AG Rise Phoenix Crewneck. Heavyweight 400gsm cotton, oversized fit, and bold phoenix branding. Shop the luxury collection.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 300;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 24px;
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 3vw, 24px);
+            font-weight: 300;
+            line-height: 1.5;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Canvas Container */
+        .canvas-container {
+            height: 300vh;
+            position: relative;
+        }
+
+        .canvas-wrapper {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #scroll-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Feature Sections */
+        .features-section {
+            position: relative;
+            z-index: 10;
+            background: #0a0a0a;
+            padding: 120px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .feature-item {
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .feature-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-title {
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .feature-body {
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.8;
+            max-width: 600px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            z-index: 10;
+            background: #0a0a0a;
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 48px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid #ffffff;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            background: #0a0a0a;
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            font-weight: 300;
+            opacity: 0.6;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 0 16px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .features-section {
+                padding: 80px 0;
+            }
+
+            .feature-item {
+                margin-bottom: 80px;
+            }
+
+            .cta-section {
+                padding: 80px 0;
+            }
+
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">LOADING PHOENIX</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Ascend From The Shadows In Premium Fleece</h1>
+            <p class="hero-subtitle">Masterfully crafted heavyweight cotton meets an iconic, bold phoenix design for the modern streetwear visionary.</p>
+        </div>
+    </div>
+
+    <!-- Canvas Container -->
+    <div class="canvas-container">
+        <div class="canvas-wrapper">
+            <canvas id="scroll-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section">
+        <div class="container">
+            <div class="feature-item">
+                <h2 class="feature-title">Architectural Silhouette</h2>
+                <p class="feature-body">Designed with a relaxed, oversized fit that drapes perfectly on any frame. The structured ribbed cuffs and hem provide a clean, refined finish that maintains its shape through every wear.</p>
+            </div>
+            <div class="feature-item">
+                <h2 class="feature-title">Heavyweight Resilience</h2>
+                <p class="feature-body">Constructed from premium 400gsm cotton fleece for a substantial, weighted feel. This is a garment built to endure, offering unparalleled comfort and durability in any climate.</p>
+            </div>
+            <div class="feature-item">
+                <h2 class="feature-title">Iconic Phoenix Artistry</h2>
+                <p class="feature-body">The chest features our signature phoenix emblem, screen-printed in high-contrast white ink. This bold design represents strength and rebirth, anchoring the piece as a cornerstone of your luxury collection.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <div class="container">
+            <a href="#" class="cta-button">CLAIM YOUR PHOENIX</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p class="footer-text">© 2024 AG Rise. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Frame URLs
+        const frameUrls = ["https://res.cloudinary.com/dldxoandb/video/upload/so_0.00,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.07,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.13,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.20,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.27,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.34,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.40,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.47,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.54,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.61,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.67,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.74,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.81,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.87,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_0.94,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.01,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.08,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.14,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.21,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.28,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.34,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.41,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.48,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.55,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.61,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.68,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.75,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.82,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.88,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_1.95,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.02,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.08,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.15,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.22,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.29,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.35,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.42,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.49,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.55,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.62,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.69,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.76,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.82,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.89,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_2.96,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.03,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.09,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.16,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.23,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.29,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.36,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.43,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.50,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.56,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.63,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.70,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.76,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.83,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.90,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_3.97,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.03,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.10,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.17,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.24,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.30,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.37,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.44,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.50,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.57,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.64,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.71,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.77,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.84,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.91,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_4.97,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.04,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.11,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.18,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.24,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.31,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.38,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.45,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.51,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.58,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.65,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.71,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.78,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.85,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.92,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_5.98,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.05,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.12,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.18,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.25,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.32,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.39,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.45,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.52,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.59,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.66,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.72,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.79,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.86,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.92,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_6.99,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.06,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.13,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.19,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.26,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.33,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.39,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.46,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.53,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.60,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.66,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.73,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.80,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.87,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_7.93,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp","https://res.cloudinary.com/dldxoandb/video/upload/so_8.00,w_1920,q_auto/wf-ag-rise-phoenix-crewneck-1772643672.webp"];
+
+        // Global variables
+        let canvas, ctx;
+        let frames = [];
+        let currentFrame = 0;
+        let isLoading = true;
+        let isScrollingEnabled = false;
+
+        // Initialize the application
+        function init() {
+            setupCanvas();
+            preloadCriticalFrames();
+            setupScrollAnimation();
+            setupFeatureAnimations();
+        }
+
+        // Setup canvas
+        function setupCanvas() {
+            canvas = document.getElementById('scroll-canvas');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+        }
+
+        // Resize canvas to maintain aspect ratio
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio;
+            canvas.height = rect.height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            
+            if (frames[currentFrame]) {
+                drawFrame(currentFrame);
+            }
+        }
+
+        // Preload critical frames (first 10)
+        async function preloadCriticalFrames() {
+            const loadingProgress = document.getElementById('loadingProgress');
+            const criticalCount = Math.min(10, frameUrls.length);
+            
+            for (let i = 0; i < criticalCount; i++) {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                
+                await new Promise((resolve) => {
+                    img.onload = () => {
+                        frames[i] = img;
+                        const progress = ((i + 1) / criticalCount) * 100;
+                        loadingProgress.style.width = progress + '%';
+                        resolve();
+                    };
+                    img.onerror = () => resolve();
+                    img.src = frameUrls[i];
+                });
+            }
+
+            // Hide loading screen and enable scrolling
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                isScrollingEnabled = true;
+                drawFrame(0);
+                
+                // Start lazy loading remaining frames
+                lazyLoadRemainingFrames();
+            }, 500);
+        }
+
+        // Lazy load remaining frames
+        async function lazyLoadRemainingFrames() {
+            const startIndex = Math.min(10, frameUrls.length);
+            
+            for (let i = startIndex; i < frameUrls.length; i++) {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                
+                img.onload = () => {
+                    frames[i] = img;
+                };
+                img.onerror = () => {
+                    // Silently handle errors
+                };
+                img.src = frameUrls[i];
+                
+                // Small delay to prevent overwhelming the browser
+                if (i % 5 === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+            }
+        }
+
+        // Draw frame on canvas
+        function drawFrame(frameIndex) {
+            if (!frames[frameIndex] || !ctx) return;
+            
+            const canvasRect = canvas.getBoundingClientRect();
+            const img = frames[frameIndex];
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvasRect.width, canvasRect.height);
+            
+            // Calculate dimensions to maintain aspect ratio
+            const imgAspect = img.width / img.height;
+            const canvasAspect = canvasRect.width / canvasRect.height;
+            
+            let drawWidth, drawHeight, drawX, drawY;
+            
+            if (imgAspect > canvasAspect) {
+                // Image is wider than canvas
+                drawHeight = canvasRect.height;
+                drawWidth = drawHeight * imgAspect;
+                drawX = (canvasRect.width - drawWidth) / 2;
+                drawY = 0;
+            } else {
+                // Image is taller than canvas
+                drawWidth = canvasRect.width;
+                drawHeight = drawWidth / imgAspect;
+                drawX = 0;
+                drawY = (canvasRect.height - drawHeight) / 2;
+            }
+            
+            ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+        }
+
+        // Setup scroll animation
+        function setupScrollAnimation() {
+            let ticking = false;
+
+            function updateFrame() {
+                if (!isScrollingEnabled) return;
+
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight;
+                const windowHeight = window.innerHeight;
+                
+                // Calculate scroll fraction
+                const scrollFraction = Math.min(scrollTop / (scrollHeight - windowHeight), 1);
+                
+                // Map to frame index
+                const frameIndex = Math.min(
+                    Math.floor(scrollFraction * (frameUrls.length - 1)),
+                    frameUrls.length - 1
+                );
+                
+                if (frameIndex !== currentFrame) {
+                    currentFrame = frameIndex;
+                    drawFrame(currentFrame);
+                }
+                
+                ticking = false;
+            }
+
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(updateFrame);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+        }
+
+        // Setup feature animations
+        function setupFeatureAnimations() {
+            const features = document.querySelectorAll('.feature-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            features.forEach(feature => {
+                observer.observe(feature);
+            });
+        }
+
+        // Start the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
